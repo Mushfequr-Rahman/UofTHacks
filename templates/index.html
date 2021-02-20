@@ -11,11 +11,13 @@
 
 </head>
 
-<body>
-    <div class='bg-red-300 text-9xl container mx-auto'>
-        <h5 class='text-9xl text-center'> p2Box </h5>
+<body class='bg-red-300'>
+    <div class='bg-red-900 text-9xl container mx-auto'>
+        <h5 class='text-9xl text-center text-white'> p2Box </h5>
     </div>
-
+    <div class='container mx-auto bg-red-300'>
+        {% block content %} {% endblock content %}
+    </div>
 </body>
 
 </html>
