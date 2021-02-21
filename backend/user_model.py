@@ -8,7 +8,7 @@ import datetime
 class User():
 
     def __init__(self, id, privateKey, hashes, user, password):
-        self.useData = {"user": user, "pwd": password, "privateKey": privateKey, "hashes": hashes, "createdAt": datetime.datetime.now().utcnow()}
+        self.useData = {"_id": id, "user": user, "pwd": password, "privateKey": privateKey, "hashes": hashes, "createdAt": datetime.datetime.now().utcnow()}
     
     def new(self):
         return self.useData   

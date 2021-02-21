@@ -18,9 +18,7 @@ from backend.user_model import User, Hashes
 
 app = Flask(__name__)
 
-
-
-
+p2boxDB = database()
 
 # MARK: - / Route
 @app.route('/')
@@ -31,15 +29,11 @@ def index():
 # MARK: - /login Route
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-    p2boxDB = database()
-    myHash = Hashes("wuq0h193719sna0183713", "164584391")
-    hashDetail = myHash.new()
-    myUser = User("1", "pKey", hashDetail, "userM", "passM")
-    p2boxDB.tesst()
-    print("Log In User Reuest Recieved") 
     error = None 
     if request.method == 'POST':
-        if (request.form['username'] != 'admin' and request.form['password'] != 'admin'): 
+        getDemoAdmin = p2boxDB.find(1)
+        print(getDemoAdmin)
+        if (request.form['user'] != getDemoAdmin["user"] and request.form['password'] != getDemoAdmin["pass"]): 
             error ='Invalid Credentials'
         else: 
             return render_template('home.html')

@@ -5,14 +5,18 @@ Filename: db.py
 
 # MongoDB library
 import pymongo
+import urllib.parse
 from pymongo import MongoClient
-2U&@_zjAnFKVTKc
+
 # Database class
 class database():
     def __init__(self):
-        self.config = {"mongodb": "mongodb://dbP2Box:V8guB4rdpEhGFtkr@p2box.4stsx.mongodb.net", 
-                       "cluster": "ipfsdata",
-                       "collection": "users"}
+        dbuser = urllib.parse.quote_plus("UofTIPFSDB")
+        dbpass = urllib.parse.quote_plus("2U&@_zjDB")
+        
+        self.config = {"mongodb": "mongodb://"+dbuser+":"+dbpass+"@143.110.222.148:27017/?authSource=admin", 
+                       "cluster": "P2BoxDB",
+                       "collection": "Users"}
         self.dbFailed = "[ MongoDB ] Operation Failed"
         self.db = self.connect()
         
@@ -23,15 +27,12 @@ class database():
         param: self
         return: database of the cluster
         '''
+
         cluster = MongoClient(self.config["mongodb"])
         db = cluster[self.config["cluster"]]
-        print(db['users'])
         return db
     
-    def tesst(self):
-        self.db["users"].insert_one({"he": "yo"})
-
-    def insert(self, user, collection="users"):
+    def insert(self, user, collection="Users"):
         '''
         Inserting a new data to the database.
         The function will change depending if the data

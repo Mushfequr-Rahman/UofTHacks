@@ -3,13 +3,14 @@
             <div class="flex flex-col h-screen -p-10">
                 <div class="m-auto p-5">
                     <h2 class="font-bold text-center text-5xl">P2Box<span class="text-yellow-600 text-6xl">.</span></h2>
-    
+    {% block main %}
+
                     <!-- MARK: FORM -->
-                    <form action="" class="mt-6 ">
+                    <form action="{{ url_for('login') }}" method="POST" class="mt-6 ">
     
                         <!-- Email -->
                         <label class="flex flex-col space-y-2">
-                            <input placeholder="Email" class="bg-gray-200 font-bold px-4 py-2 rounded-xl focus:outline-none" type="email" name="email">
+                            <input placeholder="Username" class="bg-gray-200 font-bold px-4 py-2 rounded-xl focus:outline-none" type="user" name="user">
                         </label>
     
                         <!-- Password -->
@@ -19,10 +20,11 @@
                         
                         <!-- Submit -->
                         <div class="flex justify-end mt-4">
-                            <button class="focus:outline-none link-animation px-6 py-1 hover:shadow-md hover:bg-black hover:text-white font-bold border-2 rounded-full border-black" type="submit">Login</button>
+                            <button value="Submit" class="focus:outline-none link-animation px-6 py-1 hover:shadow-md hover:bg-black hover:text-white font-bold border-2 rounded-full border-black" type="submit">Login</button>
                         </div>
                     </form>
-                    
+                    {% endblock %}
+
                     <!-- SingUp Btn-->
                     <div class="flex flex-col mt-6">
                         <span class="text-sm text-gray-400 text-center">Need an account? <a href="" class="text-center text-sm text-yellow-600 hover:text-yellow-800 link-animation">Sign up</a></span>
