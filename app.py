@@ -7,6 +7,7 @@ the project
 # MARK: - Libraries
 from flask import Flask, request, render_template
 import hashlib
+import ipfsApi
 
 
 app = Flask(__name__)
@@ -31,17 +32,22 @@ def login():
 
 @app.route('/mainpage', methods=["POST"])
 def uploadFile():
-    print("Trying to upload file")
     if request.method == 'POST':
+        api =  ipfsApi.Client('uoft.et0.me', 80)
         print("File Upload Attempt")
         uploadedFile = request.files['file']
         #hashName = hashlib.sha224(uploadedFile.filename).hexdigest()
         hashName = "Ab1ZK"
         print("Hash Name: ", hashName)
         if uploadedFile.filename != '': 
-            print("Send file to IPFS node") 
+            new_file = api.add(uploadedFile) 
+            print(new_file)
             return render_template('home.html', filename=uploadedFile.filename, hash=hashName)
-   
+
+@app.route('/mainpage', methods=["GET"])
+def getFile(): 
+    print("Function to get FIle")
+
 @app.route('/mainpage')
 def makeHome(): 
     return render_template('home.html')
