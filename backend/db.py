@@ -77,17 +77,7 @@ class database():
             return False
 
 
-    def find_reminder(self, reminderValue=True, collection="Users"):
-        '''
-        Finding all the users who have set the reminder to TRUE
-        '''
-        try:
-            return self.db[collection].find({"reminder": {"status": reminderValue}})
-        except pymongo.errors.OperationFailure:
-            print(self.dbFailed)
-            return False
-
-    def update(self, id, fieldName, newValue, subField=None, collection="Users"):
+    def update_hash(self, id, hashes, collection="Users"):
 
     
         '''
@@ -97,20 +87,11 @@ class database():
         ex: settings->campus, you have to specify the name of the parent field.
         So if we want to update campus, in the subField we have to write "settings"
         '''
-        if subField == None:
-            try:
-                self.db[collection].update_one({"_id": id}, 
-                                           {"$set": {fieldName: newValue}})
-                return True
-            except pymongo.errors.OperationFailure:
-                print(self.dbFailed)
-                return False
-        else:
-            try:
-                self.db[collection].update_one({"_id": id}, 
-                                           {"$set": {subField: {fieldName: newValue}}})
-                return True
-            except pymongo.errors.OperationFailure:
-                print(self.dbFailed)
-                return False
+        try:
+            self.db[collection].update_one({"_id": id}, 
+                                       {"$push": {"hashes": hashes}})
+            return True
+        except pymongo.errors.OperationFailure:
+            print(self.dbFailed)
+            return False
 

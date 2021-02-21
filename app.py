@@ -3,13 +3,12 @@ Filename: app.py
 - Main file for displaying
 the project
 '''
-
+import pathlib
 # MARK: - Libraries
 from flask import Flask, request, redirect, render_template, url_for, session
-import hashlib
-import ipfshttpclient
-import requests
-import json
+import requests as r
+from werkzeug.utils import secure_filename
+import datetime
 
 # Database
 from backend.db import database
@@ -23,60 +22,86 @@ p2boxDB = database()
 # res = api.add('README.md')
 
 # MARK: - / Route
-@app.route('/')
-def index(): 
-    return render_template('index.html')
-
 
 # MARK: - /login Route
-@app.route('/login', methods = ['GET', 'POST'])
+@app.route('/', methods = ['GET', 'POST'])
 def login():
-    
+    session.clear()
     if request.method == 'POST':
 
         req = request.form
         session.clear()
         getDemoAdmin = p2boxDB.find(1)
-        print(getDemoAdmin["user"])
-        print(req["user"])
+
         if (req['user'] != getDemoAdmin["user"] or req["password"] != getDemoAdmin["pwd"]): 
             feedback = "Wrong user and pass."
             return render_template("login.html", feedback=feedback)
         else: 
             session['loginOK'] = True
             session['userID'] = getDemoAdmin["_id"]
-            return redirect('mainpage')
+            return redirect('home')
     return render_template('login.html')
 
 
 
-# MARK: - /mainpage
-@app.route('/mainpage', methods=["GET" ,"POST"])
-def uploadFile():
-    
-    if session['loginOK']:
-        print(session['loginOK'])
-        return render_template('home.html')
-
-    elif request.method == 'POST':
-        api =  ipfshttpclient.connect('/ip4/138.197.130.102/tcp/8080')
-        print("File Upload Attempt")
-        uploadedFile = request.files['file']
-        if uploadedFile.filename != '': 
-            new_file = api.add(uploadedFile) 
-            print(new_file)
-            return render_template('home.html', filename=uploadedFile.filename, hash=hashName)
-    
+# MARK: - /home
+@app.route('/home', methods=["GET"])
+def home():
+    if session.get('loginOK') is not None:
+        if session["loginOK"]:
+            
+            if request.args.get('failed'):
+                return render_template('home.html', failed=True)
+            elif request.args.get("success"):
+                return render_template('home.html', success=True, fileCID=request.args.get("fileCID"))
+            else:
+                return render_template("home.html")
     else:
-        return redirect('login')
+        return redirect('/')
 
-@app.route('/mainpage', methods=["GET"])
+# MARK: - Upload to IPFS Node
+@app.route('/home', methods=["POST"])
+def addIPFS():
+    
+    if request.method == "GET":
+        return redirect('home')
+    
+    print(request.files['userFile'])
+    if 'userFile' not in request.files:
+        return redirect(url_for("home", failed=True))
+    
+    usersFiles = request.files['userFile']
+
+    if usersFiles:
+        # Temp saving file
+        secFilename = secure_filename(usersFiles.filename)
+        usersFiles.save(secFilename)
+        tempFile= open(secFilename, "rb")
+        
+        ipfsClient = r.post("https://uoft.et0.me/api/v0/add", files={"file": tempFile})
+        res = ipfsClient.json()
+        newHash = Hashes(res["Hash"], datetime.datetime.now().utcnow()).new()
+        pathlib.Path(secFilename).unlink()
+
+        currentUser = p2boxDB.find(session["userID"])
+        if "hashes" in currentUser:
+            for item in currentUser["hashes"]:
+                if item["hash"] != res["Hash"]:
+                    p2boxDB.update_hash(session["userID"], newHash)
+        else:
+            p2boxDB.update_hash(session["userID"], newHash)
+
+        if ipfsClient.reason != "OK":
+            return redirect(url_for("home", failed=True ))
+
+        return redirect(url_for("home", fileCID=res["Hash"], success=True ))
+    
+
+@app.route('/files', methods=["GET"])
 def getFile(): 
-    return "Function to get FIle"
 
-@app.route('/mainpage')
-def makeHome(): 
-    return render_template('home.html')
+    return render_template('upload.html')
+
 
 
 def getVersion():
