@@ -1,32 +1,4 @@
 {% extends "index.html" %} {% block content %}
-<div class="container">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>P2Box</title>
-
-        <link rel="stylesheet" href="styles.css">
-
-        <!-- Font Awesome -->
-        <script src="https://kit.fontawesome.com/1e48d548a4.js" crossorigin="anonymous"></script>
-        <!--JQuery-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-        </script>
-        <style>
-            .link-animation {
-                transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-                transition-duration: .15s;
-                transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-                transition-duration: .2s;
-            }
-        </style>
-    </head>
-
-    <body>
-
-        <main class="container mx-auto">
 
             <div class="flex flex-col h-screen justify-center text-center mx-10 md:mx-0">
                 <div class="flex flex-col m-auto max-w-sm">
@@ -78,9 +50,7 @@
                 </span>
             </div>
 
-        </main>
 
-    </body>
     <script>
         $('document').ready(() => {
             console.log("Document is ready now")

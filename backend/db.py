@@ -3,25 +3,19 @@ Filename: db.py
 - Database Connection
 '''
 
-import pymongo
-client = pymongo.MongoClient("")
-print(client.list_database_names())
-
 # MongoDB library
 import pymongo
 from pymongo import MongoClient
-
+2U&@_zjAnFKVTKc
 # Database class
 class database():
-
-    
-
     def __init__(self):
         self.config = {"mongodb": "mongodb://dbP2Box:V8guB4rdpEhGFtkr@p2box.4stsx.mongodb.net", 
-                       "cluster": "IPFSUsers",
+                       "cluster": "ipfsdata",
                        "collection": "users"}
         self.dbFailed = "[ MongoDB ] Operation Failed"
         self.db = self.connect()
+        
 
     def connect(self):
         '''
@@ -31,10 +25,13 @@ class database():
         '''
         cluster = MongoClient(self.config["mongodb"])
         db = cluster[self.config["cluster"]]
+        print(db['users'])
         return db
     
+    def tesst(self):
+        self.db["users"].insert_one({"he": "yo"})
 
-    def insert(self, user, collection="Users"):
+    def insert(self, user, collection="users"):
         '''
         Inserting a new data to the database.
         The function will change depending if the data
@@ -90,6 +87,8 @@ class database():
             return False
 
     def update(self, id, fieldName, newValue, subField=None, collection="Users"):
+
+    
         '''
         Updates the "fieldName" with the id of "id"
         and value of "newValue"
@@ -113,3 +112,4 @@ class database():
             except pymongo.errors.OperationFailure:
                 print(self.dbFailed)
                 return False
+

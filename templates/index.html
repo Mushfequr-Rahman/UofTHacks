@@ -2,55 +2,80 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
-    <title>
-        File Transfer
-    </title>
-    <header class="bg-white object-top fixed border-b ml-8 md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4">
-  
-        <!-- Logo text or image -->
-        <div class="flex items-center justify-between mb-4 md:mb-0">
-          <h1 class="leading-none text-2xl text-grey-darkest">
-            <a class="no-underline text-grey-darkest hover:text-black font-bold" href="/mainpage">
-              P2Box
-            </a>
-          </h1>
-      
-          <a class="text-black hover:text-orange md:hidden" href="#">
-            <i class="fa fa-2x fa-bars"></i>
-          </a>
-        </div>
-        <!-- END Logo text or image -->
-        
-        <!-- Global navigation -->
-        <nav>
-          <ul class="list-reset md:flex md:items-center">
-            <li class="md:ml-4">
-              <a class="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" href="#">
-                About
-              </a>
-            </li>
-            <li class="md:ml-4">
-              <a class="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" href="/login">
-                Login
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <!-- END Global navigation -->
-      
-      </header>
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+  <title>
+    File Transfer
+  </title>
 
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P2Box</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/1e48d548a4.js" crossorigin="anonymous"></script>
+  <!--JQuery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  </script>
+  <style>
+    .link-animation {
+      transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+      transition-duration: .15s;
+      transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+      transition-duration: .2s;
+    }
+  </style>
 </head>
 
 
-<body class='from-gray-800 bg-gradient-to-b bg-no-repeat w-full h-64 block'>
-    <div class='from-gray-800 bg-gradient-to-b bg-no-repeat w-full h-64 block container mx-auto bg-white bg-auto md:bg-contain bg-no-repeat'>
-        {% block content %} {% endblock content %}
-    </div>
+<body>
+    <header
+      class="bg-white object-top fixed border-b ml-8 md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4">
+
+      <!-- Logo text or image -->
+      <div class="flex items-center justify-between mb-4 md:mb-0">
+        <h1 class="leading-none text-2xl text-grey-darkest">
+          <a class="no-underline text-grey-darkest hover:text-black font-bold" href="/mainpage">
+            P2Box
+          </a>
+        </h1>
+
+        <a class="text-black hover:text-orange md:hidden" href="#">
+          <i class="fa fa-2x fa-bars"></i>
+        </a>
+      </div>
+      <!-- END Logo text or image -->
+
+      <!-- Global navigation -->
+      <nav>
+        <ul class="list-reset md:flex md:items-center">
+          <li class="md:ml-4">
+            <a class="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0"
+              href="#">
+              About
+            </a>
+          </li>
+          <li class="md:ml-4">
+            <a class="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0"
+              href="/login">
+              Login
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- END Global navigation -->
+
+    </header>
+    <main class="container mx-auto">
+
+    {% block content %} {% endblock content %}
+
+    </main>
 </body>
 
 </html>

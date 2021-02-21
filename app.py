@@ -7,10 +7,20 @@ the project
 # MARK: - Libraries
 from flask import Flask, request, render_template
 import hashlib
-import ipfsApi
+import ipfshttpclient
+import requests
+import json
+
+# Database
+from backend.db import database
+from backend.user_model import User, Hashes
 
 
 app = Flask(__name__)
+
+
+
+
 
 # MARK: - / Route
 @app.route('/')
@@ -21,6 +31,11 @@ def index():
 # MARK: - /login Route
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
+    p2boxDB = database()
+    myHash = Hashes("wuq0h193719sna0183713", "164584391")
+    hashDetail = myHash.new()
+    myUser = User("1", "pKey", hashDetail, "userM", "passM")
+    p2boxDB.tesst()
     print("Log In User Reuest Recieved") 
     error = None 
     if request.method == 'POST':
@@ -30,10 +45,13 @@ def login():
             return render_template('home.html')
     return render_template('login.html', error=error)
 
+
+
+# MARK: - /mainpage
 @app.route('/mainpage', methods=["POST"])
 def uploadFile():
     if request.method == 'POST':
-        api =  ipfsApi.Client('uoft.et0.me', 80)
+        api =  ipfshttpclient.Client('uoft.et0.me', 80)
         print("File Upload Attempt")
         uploadedFile = request.files['file']
         #hashName = hashlib.sha224(uploadedFile.filename).hexdigest()
@@ -46,12 +64,16 @@ def uploadFile():
 
 @app.route('/mainpage', methods=["GET"])
 def getFile(): 
-    print("Function to get FIle")
+    return "Function to get FIle"
 
 @app.route('/mainpage')
 def makeHome(): 
     return render_template('home.html')
 
 
-if __name__ == '__main__': 
+def getVersion():
+    req = requests.post("https://uoft.et0.me/api/v0/version")
+    return req.json()
+
+if __name__ == '__main__':     
     app.run(debug = True)

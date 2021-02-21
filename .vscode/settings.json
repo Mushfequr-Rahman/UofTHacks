@@ -1,9 +1,13 @@
 {
     "python.pythonPath": "/usr/local/opt/python@3.8/bin/python3",
     "cSpell.ignoreWords": [
+        "box",
+        "db",
         "ipfs",
+        "ipfshttpclient",
         "key",
         "mongodb",
+        "p",
         "private",
         "pymongo",
         "users"
