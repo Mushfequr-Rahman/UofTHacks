@@ -62,9 +62,6 @@ def uploadFile():
         api =  ipfshttpclient.connect('/ip4/138.197.130.102/tcp/8080')
         print("File Upload Attempt")
         uploadedFile = request.files['file']
-        #hashName = hashlib.sha224(uploadedFile.filename).hexdigest()
-        hashName = "Ab1ZK"
-        print("Hash Name: ", hashName)
         if uploadedFile.filename != '': 
             new_file = api.add(uploadedFile) 
             print(new_file)
