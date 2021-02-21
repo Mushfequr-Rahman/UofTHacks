@@ -1,16 +1,19 @@
 {% extends "index.html" %} {% block content %}
 <div class="container">
+
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>P2Box</title>
-    
+
         <link rel="stylesheet" href="styles.css">
-    
+
         <!-- Font Awesome -->
         <script src="https://kit.fontawesome.com/1e48d548a4.js" crossorigin="anonymous"></script>
-    
+        <!--JQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
         <style>
             .link-animation {
                 transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
@@ -20,60 +23,80 @@
             }
         </style>
     </head>
-    
+
     <body>
-    
+
         <main class="container mx-auto">
-    
+
             <div class="flex flex-col h-screen justify-center text-center mx-10 md:mx-0">
                 <div class="flex flex-col m-auto max-w-sm">
-    
+
                     <!-- MARK: - Logo & Logout -->
                     <div class="flex flex-row justify-between ml-3 md:ml-0">
-                        <h2 class="font-bold text-center text-3xl md:text-5xl">P2Box<span
-                                class="text-yellow-600 text-4xl md:text-6xl">.</span></h2>
+                        <h2 class="font-bold text-center text-3xl md:text-5xl">P2Box<span class="text-yellow-600 text-4xl md:text-6xl">.</span></h2>
                         <span class="align-middle mt-6"><a href=""
                                 class="text-yellow-600 hover:text-yellow-800 link-animation text-center ">Logout</a></span>
                     </div>
-    
+
                     <!-- Actions -->
                     <div class="flex flex-row justify-center space-x-10 mt-4">
-                        <a href=""
-                            class="flex flex-col p-2 hover:text-green-800 link-animation font-bold text-green-500"><span><i
+
+                        <form method="POST" enctype="multipart/form-data">
+                            <p> <input id="chooseFileButton" type="file" name="file"> </p>
+
+                            <a><input href="" type="submit" class="flex flex-col p-2 hover:text-green-800 link-animation font-bold text-green-500"><span><i
+                                class="fas fa-upload fa-lg"></i></span><span class="text-sm">Upload</span> </input>
+                            </a>
+                        </form>
+
+
+
+                        <a href="" class="flex flex-col p-2 hover:text-green-800 link-animation font-bold text-green-500"><span><i
                                     class="fas fa-download fa-lg"></i></span><span class="text-sm">Download</span></a>
-                        <a href=""
-                            class="flex flex-col p-2 hover:text-red-800 link-animation font-bold text-red-500"><span><i
+                        <a href="" class="flex flex-col p-2 hover:text-red-800 link-animation font-bold text-red-500"><span><i
                                     class="fas fa-trash-alt fa-lg"></i></span><span class="text-sm">Delete</span></a>
                     </div>
-    
+
                     <!-- File -->
-                    <ul class="mt-2 space-y-4">
-                        <li class="text-left bg-gray-200 rounded-xl px-4 py-2 flex flex-col space-y-1">
-                            <div class="flex flex-row justify-between "><span
-                                    class="font-bold w-9/12 truncate">contacts.txt</span><i
-                                    class="text-gray-400 text-xs pt-1">2021-02-12</i></div>
-                            <span class="text-xs break-all">QmeRzJKf4rHSYfMudaWLvrvGgdoeLQdRDAKVZ4fXascascscXy4zHE</span>
-                        </li>
-                    </ul>
-    
-    
+                    <div class="container mx-auto" id="fileNameHolder">
+
+                    </div>
+
+
                     <!-- MARK: Message -->
-    
-                    <!-- Failed -->
+
+                    <!-- Failed 
                     <div class="bg-red-600 bg-opacity-40 rounded-xl mt-8 p-4">
                         <p class="text-left text-red-700 font-semibold ">Oh no! Something went wrong!</p>
-                    </div>
+                    </div> -->
                 </div>
-    
+
                 <!-- Desc -->
                 <span class="pb-10">
                     <p class="text-gray-400 text-sm break-all">In order to decrypt the files. We will be using your one and
                         only private key.</p>
                 </span>
             </div>
-    
+
         </main>
-    
+
     </body>
+    <script>
+        $('document').ready(() => {
+            console.log("Document is ready now")
+            $("input[type=file]").change((e) => {
+                let filename = e.target.files[0].name; //$('input[type=file]').val().split('\\').pop();
+                let currentDate = new Date().toLocaleDateString()
+                let fileHTML = `<ul class="mt-2 space-y-4">
+                        <li class="text-left bg-gray-200 rounded-xl px-4 py-2 flex flex-col space-y-1">
+                            <div class="flex flex-row justify-between "><span class="font-bold w-9/12 truncate">${filename}</span><i class="text-gray-400 text-xs pt-1">${currentDate}</i></div>
+                            <span class="text-xs break-all">QmeRzJKf4rHSYfMudaWLvrvGgdoeLQdRDAKVZ4fXascascscXy4zHE</span>
+                        </li>
+                    </ul>`
+                $("#fileNameHolder").html(fileHTML);
+
+            })
+        })
+    </script>
 </div>
 {% endblock content %}
