@@ -50,21 +50,18 @@ def login():
 @app.route('/mainpage', methods=["POST"])
 def uploadFile():
     if request.method == 'POST':
-        api =  ipfshttpclient.Client('uoft.et0.me', 80)
+        api =  ipfshttpclient.connect('/ip4/138.197.130.102/tcp/8080')
         print("File Upload Attempt")
         uploadedFile = request.files['file']
-        #hashName = hashlib.sha224(uploadedFile.filename).hexdigest()
-        hashName = "Ab1ZK"
-        print("Hash Name: ", hashName)
         if uploadedFile.filename != '': 
-            new_file = api.add(uploadedFile) 
-            print(new_file)
-            return render_template('home.html', filename=uploadedFile.filename, hash=hashName)
-
+            r = requests.post("https://uoft.et0.me/api/v0/version?stream-channels=true%22", uploadedFile)
+            print(r.json())
+            return render_template('home.html', filename=uploadedFile.filename)
+"""
 @app.route('/mainpage', methods=["GET"])
 def getFile(): 
     return "Function to get FIle"
-
+""" 
 @app.route('/mainpage')
 def makeHome(): 
     return render_template('home.html')
