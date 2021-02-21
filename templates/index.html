@@ -8,7 +8,7 @@
     <title>
         File Transfer
     </title>
-    <header class="border-b md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4">
+    <header class=" fixed border-b ml-8 md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4">
   
         <!-- Logo text or image -->
         <div class="flex items-center justify-between mb-4 md:mb-0">
@@ -47,9 +47,9 @@
 </head>
 
 
-<body class='bg-white '>
-    <div class='container mx-auto bg-white bg-auto md:bg-contain', style="background-image: 
-    url('https://image.freepik.com/free-vector/abstract-yellow-watercolor-background_1055-8919.jpg')">
+<body class='bg-white bg-repeat-x', style="background-image: 
+url('https://image.freepik.com/free-vector/abstract-yellow-watercolor-background_1055-8919.jpg')">
+    <div class='container mx-auto bg-white bg-auto md:bg-contain bg-no-repeat'>
         {% block content %} {% endblock content %}
     </div>
 </body>
