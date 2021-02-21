@@ -5,7 +5,7 @@ the project
 '''
 
 # MARK: - Libraries
-from flask import Flask, request, render_template
+from flask import Flask, request, redirect, render_template
 import hashlib
 import ipfshttpclient
 import requests
@@ -31,10 +31,15 @@ def index():
 def login():
     error = None 
     if request.method == 'POST':
+
+        req = request.form
+
         getDemoAdmin = p2boxDB.find(1)
-        print(getDemoAdmin)
-        if (request.form['user'] != getDemoAdmin["user"] and request.form['password'] != getDemoAdmin["pass"]): 
-            error ='Invalid Credentials'
+        print(getDemoAdmin["user"])
+        print(req["user"])
+        if (req['user'] != getDemoAdmin["user"] or req["password"] != getDemoAdmin["pwd"]): 
+            feedback = "Wrong user and pass."
+            return render_template("login.html", feedback=feedback)
         else: 
             return render_template('home.html')
     return render_template('login.html', error=error)
