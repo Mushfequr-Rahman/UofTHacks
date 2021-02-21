@@ -1,15 +1,61 @@
 {% extends "index.html" %} {% block content %}
 <div class="container">
-    <h1>Please login</h1>
-    <br>
-    <form action="" method="post">
-        <input type="text" placeholder="Username" name="username" value="{{
-        request.form.username }}">
-        <input type="password" placeholder="Password" name="password" value="{{
-        request.form.password }}">
-        <input class="btn btn-default" type="submit" value="Login" href="/login">
-    </form>
-    {% if error %}
-    <p class="error"><strong>Error:</strong> {{ error }} {% endif %}
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>P2Box</title>
+    
+        <link rel="stylesheet" href="styles.css">
+    
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/1e48d548a4.js" crossorigin="anonymous"></script>
+    
+        <style>
+            .link-animation {
+                transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+                transition-duration: .15s;
+                transition-timing-function: cubic-bezier(.4,0,.2,1);
+                transition-duration: .2s;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <main class="container mx-auto">
+    
+            <div class="flex flex-col h-screen -p-10">
+                <div class="m-auto p-5">
+                    <h2 class="font-bold text-center text-5xl">P2Box<span class="text-yellow-600 text-6xl">.</span></h2>
+    
+                    <!-- MARK: FORM -->
+                    <form action="" class="mt-6 ">
+    
+                        <!-- Email -->
+                        <label class="flex flex-col space-y-2">
+                            <input placeholder="Email" class="bg-gray-200 font-bold px-4 py-2 rounded-xl focus:outline-none" type="email" name="email">
+                        </label>
+    
+                        <!-- Password -->
+                        <label class="flex flex-col space-y-2 mt-4">
+                            <input placeholder="Password" class="bg-gray-200 font-bold px-4 py-2 rounded-xl focus:outline-none" type="password" name="password">
+                        </label>
+                        
+                        <!-- Submit -->
+                        <div class="flex justify-end mt-4">
+                            <button class="focus:outline-none link-animation px-6 py-1 hover:shadow-md hover:bg-black hover:text-white font-bold border-2 rounded-full border-black" type="submit">Login</button>
+                        </div>
+                    </form>
+                    
+                    <!-- SingUp Btn-->
+                    <div class="flex flex-col mt-6">
+                        <span class="text-sm text-gray-400 text-center">Need an account? <a href="" class="text-center text-sm text-yellow-600 hover:text-yellow-800 link-animation">Sign up</a></span>
+                    </div>
+                </div>
+            </div>
+    
+        </main>
+    
+    </body>
 </div>
 {% endblock content %}

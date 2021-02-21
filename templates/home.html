@@ -1,6 +1,71 @@
 {% extends "index.html" %} {% block content %}
 <div class="container">
-
-    <p> Choose a file to upload now. </p>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>P2Box</title>
+    
+        <link rel="stylesheet" href="styles.css">
+    
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/1e48d548a4.js" crossorigin="anonymous"></script>
+    
+        <style>
+            .link-animation {
+                transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+                transition-duration: .15s;
+                transition-timing-function: cubic-bezier(.4,0,.2,1);
+                transition-duration: .2s;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <main class="container mx-auto">
+    
+            <div class="flex flex-col h-screen justify-center text-center mx-10 md:mx-0">
+                <div class="flex flex-col m-auto max-w-sm">
+                    
+                    <!-- MARK: - Logo & Logout -->
+                    <div class="flex flex-row justify-between ml-3 md:ml-0">
+                        <h2 class="font-bold text-center text-3xl md:text-5xl">P2Box<span class="text-yellow-600 text-4xl md:text-6xl">.</span></h2>
+                        <span class="align-middle mt-6"><a href="" class="text-yellow-600 hover:text-yellow-800 link-animation text-center ">Logout</a></span>
+                    </div>
+    
+                    <!-- Upload Form-->
+                    <form action="" class="flex flex-row mt-10 justify-between ">
+                        <!-- File -->
+                        <label>
+                            <input class="w-11/12 md:w-full rounded-xl text-sm md:text-base bg-gray-200 font-bold py-2 px-3" type="file" name="userFile" id="userFile">
+                        </label>
+                        
+                        <!-- Upload Btn-->
+                        <button type="submit" class="focus:outline-none bg-yellow-600 bg-opacity-50 hover:bg-opacity-100 link-animation text-yellow-900 text-sm md:text-base font-bold px-3 md:px-4 py-1 md:py-2 rounded-xl ml-4 md:ml-4">Upload</button>
+                    </form>
+    
+                    <!-- MARK: Message -->
+    
+                    <!-- Success -->
+                    <div class="bg-yellow-600 bg-opacity-40 rounded-xl mt-12 p-4">
+                        <p class="text-left text-yellow-700 font-semibold ">Your Hash:</p>
+                        <p class="text-left text-yellow-900 font-bold break-all">QmeRzJKf4rHSYfMudaWLvrvGgdoeLQdRDAKVZ4fXXy4zHE</p>
+                    </div>
+    
+                    <!-- Failed -->
+                    <div class="bg-red-600 bg-opacity-40 rounded-xl mt-8 p-4">
+                        <p class="text-left text-red-700 font-semibold ">Oh no! Something went wrong!</p>
+                    </div>
+                </div>
+    
+                <!-- Desc -->
+                <span class="pb-10">
+                    <p class="text-gray-400 text-sm">Choose a file to upload to IPFS. All the files will be encrypted.</p>
+                </span>
+            </div>
+    
+        </main>
+    
+    </body>
 </div>
 {% endblock content %}
