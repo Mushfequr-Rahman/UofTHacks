@@ -42,8 +42,6 @@ def login():
             return redirect('home')
     return render_template('login.html')
 
-
-
 # MARK: - /home
 @app.route('/home', methods=["GET"])
 def home():
@@ -97,10 +95,11 @@ def addIPFS():
         return redirect(url_for("home", fileCID=res["Hash"], success=True ))
     
 
+# MARK: - All Files
 @app.route('/files', methods=["GET"])
 def getFile(): 
 
-    return render_template('upload.html')
+    return render_template('files.html')
 
 
 
